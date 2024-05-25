@@ -1,3 +1,5 @@
+Drop database Biblioteca;
+
 Create database Biblioteca;
 
 use Biblioteca;
@@ -58,15 +60,14 @@ SELECT
     P.FechaDevolucion
 FROM Prestamos P
 JOIN Estudiante E ON P.EstudianteId = E.Cedula
-JOIN Libro L ON P.LibroId = L.ID
-WHERE P.EstadoPrestado = 1;
+JOIN Libro L ON P.LibroId = L.ID;
 
 DELIMITER //
 
 CREATE PROCEDURE RegistrarPrestamo(
     IN p_cedula INT,
     IN p_NombreCompleto VARCHAR(50), 
-    IN p_Carrera INT,
+    IN p_Carrera VARCHAR(30),
 	IN p_Correo VARCHAR(50), 
     IN p_Numero VARCHAR(10),
     IN p_tituloLibro VARCHAR(50)
@@ -94,6 +95,10 @@ BEGIN
     WHERE TituloLibro = p_tituloLibro;
 
     IF v_cantidadLibro > 1 THEN
+		-- restamos uno a la cantidad de libros disponibles
+		UPDATE Libro
+		SET Cantidad = v_cantidadLibro - 1
+		WHERE TituloLibro = p_tituloLibro;
         -- Crear un registro en la tabla de préstamos
         SET v_fechaPrestamo = CURDATE();
         IF MONTH(CURDATE()) < 6 THEN
@@ -142,32 +147,6 @@ END //
 
 DELIMITER ;
 
-
-DELIMITER //
-
-CREATE TRIGGER ActualizarCantidadLibros
-AFTER INSERT ON Prestamos
-FOR EACH ROW
-BEGIN
-    DECLARE v_libroId INT;
-    DECLARE v_cantidadLibro INT;
-
-    -- Obtener el ID del libro prestado
-    SET v_libroId = NEW.LibroId;
-
-    -- Obtener la cantidad actual de libros
-    SELECT Cantidad INTO v_cantidadLibro
-    FROM Libro
-    WHERE ID = v_libroId;
-
-    -- Actualizar la cantidad restando 1
-    UPDATE Libro
-    SET Cantidad = v_cantidadLibro - 1
-    WHERE ID = v_libroId;
-END //
-
-DELIMITER ;
-
 DELIMITER //
 
 CREATE TRIGGER AumentarCantidadLibros
@@ -211,3 +190,7 @@ BEGIN
     END IF;
 END //
 DELIMITER ;
+
+insert into Usuarios (NombreUsuario, contrasena)
+values ("BibliotecaRemington", "uniremingtonBiblioteca1"),
+		("Admin", "control!@#$");
