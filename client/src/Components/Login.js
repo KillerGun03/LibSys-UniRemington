@@ -1,15 +1,14 @@
-import React from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
 
 function Login() {
   const navigate = useNavigate();
-
-  const handleLogin = () => {
+  
+  const handleLogin = () =>{
     navigate('/menu')
-
-  };
-
+  }
+  
   return (
     <section className="vh-100" >
       <div className="container py-5 h-100">
@@ -31,9 +30,11 @@ function Login() {
                       <div className="form-outline mb-4">
                       <label className="form-label" htmlFor="form2Example17" >Usuario</label>
                         <input 
-                        type="email" 
+                        type="text" 
                         id="form2Example17"  
                         className="form-control form-control-lg"
+                        
+                  
                         disabled
                         />
 
@@ -44,9 +45,12 @@ function Login() {
                         type="password" 
                         id="form2Example27"  
                         className="form-control form-control-lg" 
+                        
+                      
                         disabled
                         />
                       </div>
+                      
                       <div className="pt-1 mb-4">
                         <button  
                         className="cambiar-but" 

@@ -11,6 +11,7 @@ import { LibrosP } from "./Components/LibrosP";
 import { RegistroLibroPres } from "./Components/RegistroLibroPres";
 import { LibroD } from "./Components/LibroD";
 import { RegistrarLibro } from "./Components/RegistrarLibro";
+import { Historial } from "./Components/Historial";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/registroLibroPres" element={<RegistroLibroPres />} />
         <Route path="/libroD" element={<LibroD />} />
         <Route path="/registrarLibro" element={<RegistrarLibro />} />
+        <Route path="/historial" element={<Historial />} />
       </Routes>
 
     </div>

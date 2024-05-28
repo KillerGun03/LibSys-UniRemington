@@ -1,35 +1,36 @@
-
 import "../App.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 
-
 export const LibrosP = () => {
   const navigate = useNavigate();
 
   const handleLibrosP = () => {
-    navigate('/menu')
-  }
-
-
-  const [usuariosList,setUsuarios] = useState([]);
-
-
-useEffect (() =>{
-
-  const getUsuarios = async ()=>{
-    try {
-      const response = await Axios.get("http://localhost:3001/prestamos");
-        setUsuarios(response.data);
-    } catch (error) {
-      console.error("Error en getUsuarios:", error);
-    }
-
+    navigate("/menu");
   };
   
-  getUsuarios();
-}, []);
+  const handleHistorial = () => {
+    navigate("/historial");
+  };
+
+  const [prestamosList, setPrestamos] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+
+  useEffect(() => {
+    getPrestamos();
+  }, []);
+
+  const getPrestamos = () => {
+    Axios.get("http://localhost:3001/prestamos").then((response) => {
+      setPrestamos(response.data);
+      console.log(response.data);
+    });
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchValue(event.target.value); // Actualiza el estado cuando el valor del input cambia
+  };
 
   return (
     <div>
@@ -38,48 +39,59 @@ useEffect (() =>{
           <button className="devolverM" onClick={handleLibrosP}></button>
           <h1 className="tituloLP">Lista Libros Prestados</h1>
           <div className="buscarE">
-            
             <input
               type="text"
               placeholder="Buscar Estudiante"
               className="buscar-estu"
+              value={searchValue}
+              onChange={handleSearchChange}
             />
-
           </div>
         </div>
         <table className="table table-bordered border-primary">
           <thead>
             <tr>
-              <th scope="col" >Nombres</th>
-              <th scope="col" >Cedula</th>
-              <th scope="col" >Carrera</th>
-              <th scope="col" >Correo electronico</th>
-              <th scope="col" >Nombre libro</th>
-              <th scope="col" >Fecha prestamo</th>
-              <th scope="col" >Fecha entrega</th>
+              <th scope="col">Nombre Libro</th>
+              <th scope="col">Nombre Estudiante</th>
+              <th scope="col">Carrera</th>
+              <th scope="col">Correo electronico</th>
+              <th scope="col">Fecha prestamo</th>
+              <th scope="col">Fecha Limite</th>
+              <th scope="col">Devolucion</th>
             </tr>
           </thead>
           <tbody>
-            {
-          usuariosList.map((val,key)=>{
-            return <tr key={val.id}>
-              <td>{val.id}</td>
-              <td>{val.cedula}</td>
-              <td>{val.nombreCompleto}</td>
-              <td>{val.correo}</td>
-              <td>{val.tituloLibro}</td>
-              <td>{val.fechaPretamo}</td>
-              <td>{val.fechaLimite}</td>
-            </tr>
-          })
-        }
+            {prestamosList.length > 0 ? (
+              prestamosList.map((val) => (
+                <tr key={val.ID}>
+                  <td>{val.NombreLibro}</td>
+                  <td>{val.NombreEstudiante}</td>
+                  <td>{val.Carrera}</td>
+                  <td>{val.Correo}</td>
+                  <td>{val.FechaPrestamo}</td>
+                  <td>{val.FechaLimite}</td>
+                <td className="textvolver Btn_librop">  
+                <button className="Btn_historial"
+                type="button"
+                onClick={handleHistorial}
+                >
+                  
+                </button>
+                </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6">No hay datos disponibles</td>
+              </tr>
+            )}
           </tbody>
         </table>
         <div className="textvolver Btn_librop">
-
-        <button className="Btn_librops">Confirmar</button>
-        <button className="Btn_librops">Entregado</button>
-
+          <button className="Btn_librops"
+          type="button"
+          onClick={handleHistorial}
+          >Historial</button>
         </div>
       </div>
     </div>

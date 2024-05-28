@@ -23,7 +23,6 @@ export const RegistroLibroPres = () => {
 
 
 
-
   const add = ()=>{
     Axios.post("http://localhost:3001/addPrestamo", {
       nombreCompleto:nombreCompleto,
@@ -126,14 +125,14 @@ export const RegistroLibroPres = () => {
                 placeholder="Telefono"
               />
               <br></br>
-              <label className="requisitos">Titulo Nombre </label>
+              <label className="requisitos">Titulo del Libro </label>
               <input
                 type="text"
                 onChange={(event)=>{
                   setTituloLibro(event.target.value);
                 }}
                 className="form-control" value={tituloLibro}
-                placeholder="Carrera universitaria"
+                placeholder="Titulo libro"
               />
             </div>
           </div>
