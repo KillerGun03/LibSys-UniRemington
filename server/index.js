@@ -24,9 +24,9 @@ app.get("/prestamos", (req, res) => {
 });
 
 
-// Ver el Libros /// YA ESTAAAAAAAAAAA
 
-// Ver el historial de los prestamos
+
+// Ver el historial de los prestamos //YA ESTAAAAAAAAAAAAAAAAAAA
 app.get("/historial", (req, res) => {
   const sqlSelect = "SELECT * FROM VistaHistorial";
   db.query(sqlSelect, (err, result) => {
@@ -35,8 +35,7 @@ app.get("/historial", (req, res) => {
   });
 });
 
-// Ver el Libros
-
+// Ver el Libros /// YA ESTAAAAAAAAAAA
 app.get("/Libros", (req, res) => {
   const sqlSelect = "SELECT * FROM Libro";
   db.query(sqlSelect, (err, result) => {
@@ -46,11 +45,6 @@ app.get("/Libros", (req, res) => {
 });
 
 // Registrar prestamo //YA ESTAAAAA
-
-
-
-// Registrar prestamo
-
 app.post("/addPrestamo", (req, res) => {
   const { cedula, nombreCompleto, carrera, correo, numero, tituloLibro } =
     req.body;
@@ -99,7 +93,7 @@ app.get("/historial", (req, res) => {
   });
 });
 
-// Validar usuario (inicio de sesion)
+// Validar usuario (inicio de sesion) YaA ESTAAAAAAAAAAAA
 app.post("/validarUsuario", (req, res) => {
   const { nombreUsuario, contrasena } = req.body;
   const sqlInsert = "CALL ValidateUser(?,?);";

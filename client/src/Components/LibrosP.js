@@ -15,7 +15,8 @@ export const LibrosP = () => {
   };
 
   const [prestamosList, setPrestamos] = useState([]);
-  const [searchValue, setSearchValue] = useState("");
+
+
 
   useEffect(() => {
     getPrestamos();
@@ -28,9 +29,8 @@ export const LibrosP = () => {
     });
   };
 
-  const handleSearchChange = (event) => {
-    setSearchValue(event.target.value); // Actualiza el estado cuando el valor del input cambia
-  };
+
+
 
   return (
     <div>
@@ -43,8 +43,6 @@ export const LibrosP = () => {
               type="text"
               placeholder="Buscar Estudiante"
               className="buscar-estu"
-              value={searchValue}
-              onChange={handleSearchChange}
             />
           </div>
         </div>
@@ -71,11 +69,10 @@ export const LibrosP = () => {
                   <td>{val.FechaPrestamo}</td>
                   <td>{val.FechaLimite}</td>
                 <td className="textvolver Btn_librop">  
-                <button className="Btn_historial"
+                <button 
+                className="Btn_historial"
                 type="button"
-                onClick={handleHistorial}
                 >
-                  
                 </button>
                 </td>
                 </tr>
