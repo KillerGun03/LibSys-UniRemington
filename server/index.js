@@ -23,9 +23,6 @@ app.get("/prestamos", (req, res) => {
   });
 });
 
-<<<<<<< HEAD
-// Registrar prestamo 2
-=======
 // Ver el historial de los prestamos
 app.get("/historial", (req, res) => {
   const sqlSelect = "SELECT * FROM VistaHistorial";
@@ -55,7 +52,6 @@ app.post("/addLibro", (req, res) => {
 });
 
 // Registrar prestamo
->>>>>>> 84165388a55210d236632f5b7dcd3e40e3d2ff47
 app.post("/addPrestamo", (req, res) => {
   const { cedula, nombreCompleto, carrera, correo, numero, tituloLibro } = req.body;
   const sqlInsert = "CALL RegistrarPrestamo(?,?,?,?,?,?);";
