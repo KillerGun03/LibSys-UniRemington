@@ -14,7 +14,7 @@ const db = mysql.createConnection({
   database:"biblioteca"
 });
 
-// Ver todos los prestamos
+// Ver todos los prestamos //Libros prestados 1
 app.get("/prestamos", (req, res) => {
   const sqlSelect = "SELECT * FROM VistaPrestamos";
   db.query(sqlSelect, (err, result) => {
@@ -23,26 +23,7 @@ app.get("/prestamos", (req, res) => {
   });
 });
 
-// Ver el historial de los prestamos
-app.get("/historial", (req, res) => {
-  const sqlSelect = "SELECT * FROM VistaHistorial";
-  db.query(sqlSelect, (err, result) => {
-      if (err) console.log(err);
-      else res.send(result);
-  });
-});
-
-// Registrar libro
-app.post("/addLibro", (req, res) => {
-  const { tituloLibro, editorial, autor, fecha, campoEstudio, cantidad } = req.body;
-  const sqlInsert = "CALL InsertarLibro(?,?,?,?,?,?);";
-  db.query(sqlInsert, [tituloLibro, editorial, autor, fecha, campoEstudio, cantidad], (err, result) => {
-      if (err) console.log(err);
-      else res.send("Libro registrado");
-  });
-});
-
-// Registrar prestamo
+// Registrar prestamo 2
 app.post("/addPrestamo", (req, res) => {
   const { cedula, nombreCompleto, carrera, correo, numero, tituloLibro } = req.body;
   const sqlInsert = "CALL RegistrarPrestamo(?,?,?,?,?,?);";
@@ -52,6 +33,20 @@ app.post("/addPrestamo", (req, res) => {
   });
 });
 
+
+
+// Registrar libro 4
+app.post("/addLibro", (req, res) => {
+  const { tituloLibro, editorial, autor, fecha, campoEstudio, cantidad } = req.body;
+  const sqlInsert = "CALL InsertarLibro(?,?,?,?,?,?);";
+  db.query(sqlInsert, [tituloLibro, editorial, autor, fecha, campoEstudio, cantidad], (err, result) => {
+      if (err) console.log(err);
+      else res.send("Libro registrado");
+  });
+});
+
+
+
 // Actualizar estado del prestamo (devolucion del libro)
 app.post("/actualizarEstado", (req, res) => {
   const { idPrestamo } = req.body; // el id del registro del prestamo
@@ -59,6 +54,16 @@ app.post("/actualizarEstado", (req, res) => {
   db.query(sqlInsert, [idPrestamo], (err, result) => {
       if (err) console.log(err);
       else res.send("estado del prestamo actualizado");
+  });
+});
+
+
+// Ver el historial de los prestamos
+app.get("/historial", (req, res) => {
+  const sqlSelect = "SELECT * FROM VistaHistorial";
+  db.query(sqlSelect, (err, result) => {
+      if (err) console.log(err);
+      else res.send(result);
   });
 });
 

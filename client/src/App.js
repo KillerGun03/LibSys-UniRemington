@@ -2,6 +2,7 @@ import "./App.css";
 import "./index.css";
 import "./index";
 import React from "react";
+import Axios from "axios";
 import { Route, Routes } from "react-router-dom";
 import { Header } from "./Components/Header";
 import Login from "./Components/Login";
@@ -18,7 +19,7 @@ function App() {
       <Header />
 
       <Routes>
-        <Route path="/header" element={<Header />} />
+        <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/librosP" element={<LibrosP />} />

@@ -1,6 +1,9 @@
-import React from "react";
+
 import "../App.css";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import Axios from "axios";
+
 
 export const LibrosP = () => {
   const navigate = useNavigate();
@@ -8,6 +11,25 @@ export const LibrosP = () => {
   const handleLibrosP = () => {
     navigate('/menu')
   }
+
+
+  const [usuariosList,setUsuarios] = useState([]);
+
+
+useEffect (() =>{
+
+  const getUsuarios = async ()=>{
+    try {
+      const response = await Axios.get("http://localhost:3001/prestamos");
+        setUsuarios(response.data);
+    } catch (error) {
+      console.error("Error en getUsuarios:", error);
+    }
+
+  };
+  
+  getUsuarios();
+}, []);
 
   return (
     <div>
@@ -28,31 +50,33 @@ export const LibrosP = () => {
         <table className="table table-bordered border-primary">
           <thead>
             <tr>
-              <th>Nombres</th>
-              <th>Cedula</th>
-              <th>Carrera</th>
-              <th>Correo electronico</th>
-              <th>Nombre libro</th>
-
-              <th>Fecha prestamo</th>
-              <th>Fecha entrega</th>
+              <th scope="col" >Nombres</th>
+              <th scope="col" >Cedula</th>
+              <th scope="col" >Carrera</th>
+              <th scope="col" >Correo electronico</th>
+              <th scope="col" >Nombre libro</th>
+              <th scope="col" >Fecha prestamo</th>
+              <th scope="col" >Fecha entrega</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Ramon Ramirez Real</td>
-              <td>100326548</td>
-              <td>Sistemas</td>
-              <td>ramonramirezreal10@gmail.com</td>
-              <td>Java Vl1</td>
-              <td>10/10/2020</td>
-              <td>10/11/2020</td>
+            {
+          usuariosList.map((val,key)=>{
+            return <tr key={val.id}>
+              <td>{val.id}</td>
+              <td>{val.cedula}</td>
+              <td>{val.nombreCompleto}</td>
+              <td>{val.correo}</td>
+              <td>{val.tituloLibro}</td>
+              <td>{val.fechaPretamo}</td>
+              <td>{val.fechaLimite}</td>
             </tr>
+          })
+        }
           </tbody>
         </table>
         <div className="textvolver Btn_librop">
-        <button className="Btn_librops">Editar</button>
-        <button className="Btn_librops">Borrar</button>
+
         <button className="Btn_librops">Confirmar</button>
         <button className="Btn_librops">Entregado</button>
 
