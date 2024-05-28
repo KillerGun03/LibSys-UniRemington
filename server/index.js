@@ -80,7 +80,7 @@ app.post("/actualizarEstado", (req, res) => {
   const sqlInsert = "CALL ActualizarEstado(?);";
   db.query(sqlInsert, [idPrestamo], (err, result) => {
     if (err) console.log(err);
-    else res.send("estado del prestamo actualizado");
+    else res.send("estado del prestamo actualizado: " + idPrestamo);
   });
 });
 

@@ -16,8 +16,6 @@ export const LibrosP = () => {
 
   const [prestamosList, setPrestamos] = useState([]);
 
-
-
   useEffect(() => {
     getPrestamos();
   }, []);
@@ -29,8 +27,18 @@ export const LibrosP = () => {
     });
   };
 
+  const handleDevolucion = async (idPrestamo) => {
+    try {
+      const response = await Axios.post('http://localhost:3001/actualizarEstado', {
+        idPrestamo
+      });
 
-
+      console.log(response.data);
+      getPrestamos(); // Actualizar la lista de préstamos después de la devolución
+    } catch (error) {
+      console.error('Hubo un error al actualizar el estado del préstamo:', error);
+    }
+  };
 
   return (
     <div>
@@ -66,14 +74,16 @@ export const LibrosP = () => {
                   <td>{val.NombreEstudiante}</td>
                   <td>{val.Carrera}</td>
                   <td>{val.Correo}</td>
-                  <td>{val.FechaPrestamo}</td>
-                  <td>{val.FechaLimite}</td>
+                  <td>{new Date(val.FechaPrestamo).toISOString().split('T')[0]}</td>
+                  <td>{new Date(val.FechaLimite).toISOString().split('T')[0]}</td>
                 <td className="textvolver Btn_librop">  
-                <button 
-                className="Btn_historial"
-                type="button"
-                >
-                </button>
+                  <button 
+                    className="Btn_historial"
+                    type="button"
+                    onClick={() => handleDevolucion(val.ID)}
+                  >
+                    ✔
+                  </button>
                 </td>
                 </tr>
               ))
@@ -94,4 +104,5 @@ export const LibrosP = () => {
     </div>
   );
 };
+
 export default LibrosP;

@@ -40,7 +40,7 @@ export const Historial = () => {
               <th scope="col">Carrera</th>
               <th scope="col">Correo electronico</th>
               <th scope="col">Fecha prestamo</th>
-              <th scope="col">Fecha Entrega</th>
+              <th scope="col">Fecha Devolucion</th>
             </tr>
           </thead>
           <tbody>
@@ -51,8 +51,13 @@ export const Historial = () => {
                   <td>{val.NombreEstudiante}</td>
                   <td>{val.Carrera}</td>
                   <td>{val.Correo}</td>
-                  <td>{val.FechaPrestamo}</td>
-                  <td>{val.FechaEntrega}</td>
+                  <td>{new Date(val.FechaPrestamo).toISOString().split('T')[0]}</td>
+                  <td>
+                    {
+                      val.FechaDevolucion === null ? 'No entregado' : 
+                      new Date(val.FechaDevolucion).toISOString().split('T')[0]
+                    }
+                  </td>
                 </tr>
               ))
             ) : (

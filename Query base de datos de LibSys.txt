@@ -39,6 +39,7 @@ create table Prestamos (
 
 CREATE VIEW VistaPrestamos AS
 SELECT
+	P.ID,
     E.NombreCompleto AS NombreEstudiante,
     E.Carrera,
     E.Correo,
@@ -52,6 +53,7 @@ WHERE P.EstadoPrestado = 1;
 
 CREATE VIEW VistaHistorial AS
 SELECT
+	P.ID,
     E.NombreCompleto AS NombreEstudiante,
     E.Carrera,
     E.Correo,
@@ -194,3 +196,4 @@ DELIMITER ;
 insert into Usuarios (NombreUsuario, contrasena)
 values ("BibliotecaRemington", "uniremingtonBiblioteca1"),
 		("Admin", "control!@#$");
+ 
