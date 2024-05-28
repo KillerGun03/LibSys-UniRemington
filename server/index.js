@@ -23,7 +23,20 @@ app.get("/prestamos", (req, res) => {
   });
 });
 
+
 // Ver el Libros /// YA ESTAAAAAAAAAAA
+
+// Ver el historial de los prestamos
+app.get("/historial", (req, res) => {
+  const sqlSelect = "SELECT * FROM VistaHistorial";
+  db.query(sqlSelect, (err, result) => {
+      if (err) console.log(err);
+      else res.send(result);
+  });
+});
+
+// Ver el Libros
+
 app.get("/Libros", (req, res) => {
   const sqlSelect = "SELECT * FROM Libro";
   db.query(sqlSelect, (err, result) => {
@@ -33,6 +46,10 @@ app.get("/Libros", (req, res) => {
 });
 
 // Registrar prestamo //YA ESTAAAAA
+
+
+
+// Registrar prestamo
 
 app.post("/addPrestamo", (req, res) => {
   const { cedula, nombreCompleto, carrera, correo, numero, tituloLibro } =

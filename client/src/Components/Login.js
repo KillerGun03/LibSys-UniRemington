@@ -1,14 +1,35 @@
+import React, { useState } from "react";
 
-import { useNavigate } from 'react-router-dom';
-import '../App.css';
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "../App.css";
 
 function Login() {
   const navigate = useNavigate();
-  
-  const handleLogin = () =>{
-    navigate('/menu')
-  }
-  
+
+  const [nombreUsuario, setNombreUsuario] = useState("");
+  const [contrasena, setContrasena] = useState("");
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/validarUsuario",
+        {
+          nombreUsuario,
+          contrasena,
+        }
+      );
+
+      if (response.data === 'usuario validado') {
+        navigate('/menu');
+      } else {
+        alert('Usuario no validado');
+      }
+    } catch (error) {
+      console.error('Hubo un error al iniciar sesión:', error);
+    }
+  };
+
   return (
     <section className="vh-100" >
       <div className="container py-5 h-100">
@@ -29,34 +50,31 @@ function Login() {
 
                       <div className="form-outline mb-4">
                       <label className="form-label" htmlFor="form2Example17" >Usuario</label>
-                        <input 
-                        type="text" 
+                      <input 
+                        type="email" 
                         id="form2Example17"  
                         className="form-control form-control-lg"
-                        
-                  
-                        disabled
-                        />
+                        onChange={e => setNombreUsuario(e.target.value)}
+                      />
 
                       </div>
                       <div className="form-outline mb-4">
                       <label className="form-label" htmlFor="form2Example27" >Contraseña</label>
-                        <input 
+                      <input 
                         type="password" 
                         id="form2Example27"  
                         className="form-control form-control-lg" 
-                        
-                      
-                        disabled
-                        />
+                        onChange={e => setContrasena(e.target.value)}
+                      />
                       </div>
-                      
                       <div className="pt-1 mb-4">
-                        <button  
+                      <button  
                         className="cambiar-but" 
                         type="button"
                         onClick={handleLogin}
-                        >Ingresar</button>
+                      >
+                        Ingresar
+                      </button>
                       </div>
 
                     </form>
