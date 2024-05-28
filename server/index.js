@@ -32,6 +32,15 @@ app.get("/historial", (req, res) => {
   });
 });
 
+// Ver el Libros
+app.get("/Libros", (req, res) => {
+  const sqlSelect = "SELECT * FROM Libro";
+  db.query(sqlSelect, (err, result) => {
+      if (err) console.log(err);
+      else res.send(result);
+  });
+});
+
 // Registrar libro
 app.post("/addLibro", (req, res) => {
   const { tituloLibro, editorial, autor, fecha, campoEstudio, cantidad } = req.body;
