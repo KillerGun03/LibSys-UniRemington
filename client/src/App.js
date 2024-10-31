@@ -1,34 +1,37 @@
 import "./App.css";
 import "./index.css";
-import "./index";
-import React from "react";
-import Axios from "axios";
-import { Route, Routes } from "react-router-dom";
-import { Header } from "./Components/Header";
-import Login from "./Components/Login";
-import { Menu } from "./Components/Menu"; 
-import { LibrosP } from "./Components/LibrosP"; 
-import { RegistroLibroPres } from "./Components/RegistroLibroPres";
-import { LibroD } from "./Components/LibroD";
-import { RegistrarLibro } from "./Components/RegistrarLibro";
-import { Historial } from "./Components/Historial";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+///Componentes
+import NavBar from "./Components/NavBar";
+import Footer from "./Components/Footer";
+
+///Paginas Clientes
+import Login from "./Pages/Login";
+import Home from "./Pages/Home";
+import VistaProduct from "./Pages/VistaProduct";
+import PagosProducts from "./Pages/PagosProducts";
+
+///Paginas Admin  
+
+
 
 function App() {
   return (
     <div className="App">
-      <Header />
-
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/menu" element={<Menu />} />
-        <Route path="/librosP" element={<LibrosP />} />
-        <Route path="/registroLibroPres" element={<RegistroLibroPres />} />
-        <Route path="/libroD" element={<LibroD />} />
-        <Route path="/registrarLibro" element={<RegistrarLibro />} />
-        <Route path="/historial" element={<Historial />} />
-      </Routes>
+      <BrowserRouter>
+      <NavBar />
+        <Routes>
+          <Route path="/" element={<PagosProducts />} />
+          <Route path="/Login" element={<Login/>} />
+          <Route path="/Home" element={<Home/>} />
+          <Route path="/VistaProduct" element={<VistaProduct/>} />
+          <Route path="/PagosProducts" element={<PagosProducts/>} />
+        </Routes>
+      <Footer />
+      </BrowserRouter>
 
     </div>
   );
